@@ -138,7 +138,7 @@ void cargarDatos(NodoCliente*& clientes, NodoProducto*& productos, std::vector<I
 /*
 ***********************************************
 *                                             *
-*        Prototipos de las funciones          *
+*        Funciones de Gestion de info         *
 *              (abajo)  ↓↓↓↓                  *
 *                                             *
 *                                             *
@@ -147,10 +147,281 @@ void cargarDatos(NodoCliente*& clientes, NodoProducto*& productos, std::vector<I
 ***********************************************
 */
 
+void gestionClientes(NodoCliente*& listaClientes) {
+    int opcion;
+    while (true) {
+        cout << " \n############################# Gestion de Clientes #############################\n " << endl;
+        cout << "0. Regresar al menu principal" << endl;
+        cout << "1. Insertar cliente." << endl;
+        cout << "2. Eliminar cliente." << endl;
+        cout << "3. Modificar cliente." << endl;
+        cout << "4. Mostrar clientes." << endl;
+        cout << "Ingrese la opcion que desea elegir: ";
+        cin >> opcion;
+        switch (opcion) {
+        case 0:
+            cout << "Regresando al menu principal..." << endl;
+            return;
+        case 1: {
+            Cliente nuevoCliente;
+            cout << "Ingrese el nombre del cliente: ";
+            cin >> nuevoCliente.nombre;
+            cout << "Ingrese el apellido del cliente: ";
+            cin >> nuevoCliente.apellido;
+            cout << "Ingrese la cedula del cliente: ";
+            cin >> nuevoCliente.cedula;
+            cout << "Ingrese la edad del cliente: ";
+            cin >> nuevoCliente.edad;
+            cout << "Ingrese la direccion del cliente: ";
+            cin >> nuevoCliente.direccion;
 
+            insertarCliente(listaClientes, nuevoCliente);
+            break;
+        }
+        case 2: {
+            int cedula;
+            cout << "Ingrese la cedula del cliente que desea eliminar: ";
+            cin >> cedula;
+            eliminarCliente(listaClientes, cedula);
+            break;
+        }
+        case 3: {
+            int cedula;
+            cout << "Ingrese la cedula del cliente que desea modificar: ";
+            cin >> cedula;
+            Cliente nuevoDato;
+            cout << "Ingrese el nombre del cliente: ";
+            cin >> nuevoDato.nombre;
+            cout << "Ingrese el apellido del cliente: ";
+            cin >> nuevoDato.apellido;
+            cout << "Ingrese la cedula del cliente: ";
+            cin >> nuevoDato.cedula;
+            cout << "Ingrese la edad del cliente: ";
+            cin >> nuevoDato.edad;
+            cout << "Ingrese la direccion del cliente: ";
+            cin >> nuevoDato.direccion;
 
+            modificarCliente(listaClientes, cedula, nuevoDato);
+            break;
+        }
+        case 4: {
+            mostrarClientes(listaClientes);
+            break;
+        }
+        default:
+            cout << "Opcion no valida. Intente de nuevo." << endl;
+            break;
+        }
+    }
+}
 
+void gestionNegocios(NodoNegocio*& negocios) {
+    int opcion;
+    while (true) {
+        cout << " \n############################# Gestion de Negocios #############################\n " << endl;
+        cout << "0. Regresar al menu principal" << endl;
+        cout << "1. Insertar negocio." << endl;
+        cout << "2. Eliminar negocio." << endl;
+        cout << "3. Modificar negocio." << endl;
+        cout << "4. Mostrar negocios." << endl;
+        cout << "Ingrese la opcion que desea elegir: ";
+        cin >> opcion;
+        switch (opcion) {
+        case 0:
+            cout << "Regresando al menu principal..." << endl;
+            return;
+        case 1: {
+            Negocio nuevoNegocio;
+            cout << "Ingrese el id del negocio: ";
+            cin >> nuevoNegocio.id;
+            cout << "Ingrese el nombre del negocio: ";
+            cin >> nuevoNegocio.nombre;
+            cout << "Ingrese el horario del negocio: ";
+            cin >> nuevoNegocio.horario;
+            cout << "Ingrese la ubicacion del negocio: ";
+            cin >> nuevoNegocio.ubicacion;
 
+            insertarNegocio(negocios, nuevoNegocio);
+            break;
+        }
+        case 2: {
+            int idNegocio;
+            cout << "Ingrese el id del negocio que desea eliminar: ";
+            cin >> idNegocio;
+            eliminarNegocio(negocios, idNegocio);
+            break;
+        }
+        case 3: {
+            int idNegocio;
+            cout << "Ingrese el id del negocio que desea modificar: ";
+            cin >> idNegocio;
+            Negocio nuevoDato;
+            cout << "Ingrese el nombre del negocio: ";
+            cin >> nuevoDato.nombre;
+            cout << "Ingrese el horario del negocio: ";
+            cin >> nuevoDato.horario;
+            cout << "Ingrese la ubicacion del negocio: ";
+            cin >> nuevoDato.ubicacion;
+
+            modificarNegocio(negocios, idNegocio, nuevoDato);
+            break;
+        }
+        case 4: {
+            mostrarNegocios(negocios);
+            break;
+        }
+        default:
+            cout << "Opcion no valida. Intente de nuevo." << endl;
+            break;
+        }
+    }
+}
+
+void gestionProductos(NodoProducto*& productos, vector<Ingrediente>& listaIngredientes) {
+    int opcion;
+    while (true) {
+        cout << " \n############################# Gestion de Productos #############################\n " << endl;
+        cout << "0. Regresar al menu principal" << endl;
+        cout << "1. Insertar producto." << endl;
+        cout << "2. Eliminar producto." << endl;
+        cout << "3. Modificar producto." << endl;
+        cout << "4. Mostrar productos." << endl;
+        cout << "Ingrese la opcion que desea elegir: ";
+        cin >> opcion;
+        switch (opcion) {
+        case 0:
+            cout << "Regresando al menu principal..." << endl;
+            return;
+        case 1: {
+            Producto nuevoProducto;
+            cout << "Ingrese el nombre del producto: ";
+            cin >> nuevoProducto.nombre;
+            cout << "Ingrese el precio del producto: ";
+            cin >> nuevoProducto.precio;
+
+            insertarProducto(productos, nuevoProducto);
+            break;
+        }
+        case 2: {
+            std::string nombre;
+            cout << "Ingrese el nombre del producto que desea eliminar: ";
+            cin >> nombre;
+            eliminarProducto(productos, nombre);
+            break;
+        }
+        case 3: {
+            std::string nombre;
+            cout << "Ingrese el nombre del producto que desea modificar: ";
+            cin >> nombre;
+            Producto nuevoDato;
+            cout << "Ingrese el nombre del producto: ";
+            cin >> nuevoDato.nombre;
+            cout << "Ingrese el precio del producto: ";
+            cin >> nuevoDato.precio;
+
+            modificarProducto(productos, nombre, nuevoDato);
+            break;
+        }
+        case 4: {
+            mostrarProductos(productos);
+            break;
+        }
+        default:
+            cout << "Opcion no valida. Intente de nuevo." << endl;
+            break;
+        }
+    }
+}
+
+void gestionIngredientes(std::vector<Ingrediente>& listaIngredientes) {
+    int opcion;
+    do {
+        std::cout << "\n===== GESTIÓN DE INGREDIENTES =====" << std::endl;
+        std::cout << "1. Insertar ingrediente" << std::endl;
+        std::cout << "2. Eliminar ingrediente" << std::endl;
+        std::cout << "3. Modificar cantidad de ingrediente" << std::endl;
+        std::cout << "4. Mostrar ingredientes" << std::endl;
+        std::cout << "0. Regresar al menú principal" << std::endl;
+        std::cout << "Ingrese una opción: ";
+        std::cin >> opcion;
+
+        switch (opcion) {
+            case 1: {
+                Ingrediente nuevoIngrediente;
+                std::cout << "Ingrese el nombre del ingrediente: ";
+                std::cin >> nuevoIngrediente.nombre;
+                std::cout << "Ingrese la cantidad del ingrediente: ";
+                std::cin >> nuevoIngrediente.cantidad;
+
+                listaIngredientes.push_back(nuevoIngrediente);
+                break;
+            }
+            case 2: {
+                std::string nombreIngrediente;
+                std::cout << "Ingrese el nombre del ingrediente a eliminar: ";
+                std::cin >> nombreIngrediente;
+                auto it = std::find_if(listaIngredientes.begin(), listaIngredientes.end(), [nombreIngrediente](Ingrediente& i) {
+                    return i.nombre == nombreIngrediente;
+                });
+                if (it != listaIngredientes.end()) {
+                    listaIngredientes.erase(it);
+                } else {
+                    std::cout << "El ingrediente no existe." << std::endl;
+                }
+                break;
+            }
+            case 3: {
+                std::string nombreIngrediente;
+                double nuevaCantidad;
+                std::cout << "Ingrese el nombre del ingrediente a modificar: ";
+                std::cin >> nombreIngrediente;
+                std::cout << "Ingrese la nueva cantidad del ingrediente: ";
+                std::cin >> nuevaCantidad;
+
+                Ingrediente* ingr = buscarIngrediente(listaIngredientes, nombreIngrediente);
+                if (ingr != nullptr) {
+                    modificarCantidadIngredienteGeneral(listaIngredientes, *ingr, nuevaCantidad);
+                } else {
+                    std::cout << "El ingrediente no existe." << std::endl;
+                }
+                break;
+            }
+            case 4:
+                for (auto& i : listaIngredientes) {
+                    std::cout << "Nombre: " << i.nombre << std::endl;
+                    std::cout << "Cantidad: " << i.cantidad << std::endl;
+                    std::cout << "------------------------" << std::endl;
+                }
+                break;
+            case 0:
+                std::cout << "Regresando al menú principal..." << std::endl;
+                break;
+            default:
+                std::cout << "Opción inválida. Intente nuevamente." << std::endl;
+                break;
+        }
+    } while (opcion != 0);
+}
+
+void registroVentas(NodoCliente*& clientes, NodoNegocio*& negocios, NodoProducto*& productos) {
+    int cedulaCliente, idNegocio;
+    std::string nombreProducto, fecha;
+    double cantidad;
+    std::cout << "Ingrese la cédula del cliente: ";
+    std::cin >> cedulaCliente;
+    std::cout << "Ingrese el id del negocio: ";
+    std::cin >> idNegocio;
+    std::cout << "Ingrese el nombre del producto: ";
+    NodoCliente* cliente = buscarCliente(clientes, cedulaCliente);
+    NodoNegocio* negocio = buscarNegocio(negocios, idNegocio);
+    Producto* producto = buscarProducto(productos, nombreProducto);
+
+    if (cliente != nullptr && negocio != nullptr && producto != nullptr) {
+        registrarVenta(clientes, cedulaCliente, idNegocio, *producto, cantidad, fecha);
+    } else {
+        std::cout << "Cliente, negocio o producto no encontrado." << std::endl;
+    }
+}
 
 
 
@@ -169,11 +440,52 @@ void cargarDatos(NodoCliente*& clientes, NodoProducto*& productos, std::vector<I
 
 
 void menu_p(){
+    int opcion;
     cout << " \n############################# Menu Principal #############################\n " << endl;
+    cout << "1. Gestion de Clientes" << endl;
+    cout << "2. Gestion de Negocios" << endl;
+    cout << "3. Gestion de Productos" << endl;
+    cout << "4. Gestion de Ingredientes" << endl;
+    cout << "5. Registro de Ventas" << endl;
+    cout << "6. Actualizar informacion." << endl;
+    cout << "7. Consultas. " << endl;
+    cout << "8. Reportes. " << endl;
     cout << "0. Salir" << endl;
-    cout << "1. Actualizar informacion." << endl;
-    cout << "2. Consultas. " << endl;
-    cout << "3. Reportes. " << endl;
+    cout << "Ingrese la opcion que desea elegir: ";
+    cin >> opcion;
+
+    switch(opcion){
+        case 0:
+            return;
+        case 1:
+            // Llamada de la funcion
+            break;
+        case 2:
+            // Llamada de la funcion
+            break;
+        case 3:
+            // Llamada de la funcion
+            break;
+        case 4:
+            // Llamada de la funcion
+            break;
+        case 5:
+            // Llamada de la funcion
+            break;
+        case 6:
+            // Llamada de la funcion
+            break;
+        case 7:
+            // Llamada de la funcion
+            break;
+        case 8:
+            // Llamada de la funcion
+            break;
+        default:
+            cout << "Opcion no valida. Intente de nuevo." << endl;
+            break;
+    }
+    
 }
 
 
